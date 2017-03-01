@@ -23,4 +23,4 @@ rsinstaller.c => Small installer for Ubuntu or Debian based machines
 
 syslog-ng => Syslog-ng configuration (adds listeners UDP / TCP)
 
-Check README.txt for more information.
+Check README.txt for more information or visit https://www.remotesyslog.com/
