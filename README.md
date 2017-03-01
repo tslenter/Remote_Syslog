@@ -1,4 +1,4 @@
-# Remote_Syslog
+Example# Remote_Syslog
 Scripts / Programs to deploy a Syslog Server with TUI and GUI
 
 README.txt = > Instruction for manual installation
@@ -18,7 +18,7 @@ logrotate => Configuration for logrotate
 rsview.c => Small c++ program to view syslog messages
 - compile: g++ rsview.c -o rsview
 
-rsinstaller.c => Small installer for Ubuntu or Debian based machines
+rsinstaller.c => Example installer for Ubuntu or Debian based machines
 - compile: g++ rsinstaller.c -o rsinstaller
 
 syslog-ng => Syslog-ng configuration (adds listeners UDP / TCP)
