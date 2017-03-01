@@ -69,7 +69,7 @@ chmod +x /usr/bin/rsview
 
 5. Deploy GUI webpage:
 
-5.1 Copy all files to load the webpage:
+5.1 Copy all files to your Apache 2 web direcotry:
 cp -rf index.php /var/www/html/
 cp -rf favicon.ico /var/www/html/
 cp -rf jquery-latest.js /var/www/html/
