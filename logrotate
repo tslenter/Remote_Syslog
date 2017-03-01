@@ -1,0 +1,10 @@
+#Remote Syslog
+/var/log/remote_syslog/remote_syslog.log{
+  rotate 52
+  weekly
+  missingok
+  notifempty
+  postrotate
+  invoke-rc.d syslog-ng reload > /dev/null
+  endscript
+}
