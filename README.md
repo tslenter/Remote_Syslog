@@ -26,3 +26,5 @@ syslog-ng => Syslog-ng configuration (adds listeners UDP / TCP)
 syslog-ng-local => Syslog-ng configuration module (redirects all system logging to Remote Syslog)
 
 Check README.txt for more information or visit https://www.remotesyslog.com/
+
+Version 1.1.2 and below have a bug when upgrading to a version higher then 1.1.2a. To resolve this issue run the "rsinstaller -a" twice.
