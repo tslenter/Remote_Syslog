@@ -40,7 +40,7 @@ static void show_usage(std::string name)
               << "\t-t,--testmessage\t\t\t Send a test message\n"
               << "\t-c,--clearlog\t\t\t\t Clear total log archive\n"
               << "\n"
-              << "Remote Syslog v1.1.2 by T.Slenter\n"
+              << "Remote Syslog v1.1.2a by T.Slenter\n"
               << "More information: remotesyslog.com\n"
               << std::endl;
 }
@@ -49,7 +49,7 @@ inline bool livebanner () {
  printf("#####################################\n");
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
- printf("#Version: 1.1.2                     #\n");
+ printf("#Version: 1.1.2a                    #\n");
  printf("#####################################\n");
  printf("\n");
  printf("Press ctrl + c to quit\n");
@@ -60,7 +60,7 @@ inline bool logbanner () {
  printf("#####################################\n");
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
- printf("#Version: 1.1.2                     #\n");
+ printf("#Version: 1.1.2a                    #\n");
  printf("#####################################\n");
  printf("\n");
 }

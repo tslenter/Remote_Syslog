@@ -43,7 +43,7 @@ inline bool install_exist (const std::string& name) {
                 fclose(file);
                 printf("Previous instalation found ...\n");
         } else {
-                printf("No Remote Syslog upgrade possible ...\n");
+                printf("No Remote Syslog upgrade or update possible ...\n");
 		exit(0);
         }
 }
@@ -72,10 +72,21 @@ inline bool extraupgrade_exist (const std::string& name) {
         if (FILE *file = fopen(name.c_str(), "r")) {
                 fclose(file);
                 printf("Extra update file found ...\n");
-		system("chmod +x ~/syslog-latest/extraupgrade");
-		system("~/syslog-latest/extraupgrade");
+		system("chmod +x /tmp/extraupgrade");
+		system("/tmp/extraupgrade");
+                printf("Remove update file ...\n");
+		system("rm -rf /tmp/extraupgrade");
         } else {
                 printf("No extra update file ...\n");
+        }
+}
+
+inline bool localsyslog_activated (const std::string& name) {
+        if (FILE *file = fopen(name.c_str(), "r")) {
+                fclose(file);
+                printf("Local log to Remote Syslog is activated ...\n");
+        } else {
+                printf("Local log to Remote Syslog is not activated ...\n");
         }
 }
 
@@ -108,19 +119,22 @@ int checkinstallation()
         file_exist("/etc/syslog-ng/conf.d/99-remote.conf");
         printf("Check remote_log dummy file 1X ...\n");
         file_exist("/var/log/remote_syslog/remote_syslog.log");
-	printf("Check reconfiguration files 6X ...\n");
+	printf("Check reconfiguration files 7X ...\n");
 	file_exist("/opt/remotesyslog/syslog-ng");
 	file_exist("/opt/remotesyslog/logrotate");
         file_exist("/opt/remotesyslog/colortail");
         file_exist("/opt/remotesyslog/syslog-ngdefault");
         file_exist("/opt/remotesyslog/logrotatedefault");
         file_exist("/opt/remotesyslog/colortaildefault");
+	file_exist("/opt/remotesyslog/syslog-ng-localdefault");
+	printf("Checking optional module activation ...\n");
+	localsyslog_activated("/etc/syslog-ng/conf.d/99-remote-local.conf");
 }
 
 int debpackage()
 {
         installer_exist("/usr/bin/rsinstaller");
-        printf("Notice: This installation is tested for Debian 8.9 or higher...\n");
+        printf("Notice: This installation is tested for Debian 8.7 or higher...\n");
         printf("Starting installation ...\n");
         printf("Update installer cache ...\n");
         system("apt update");
@@ -181,6 +195,7 @@ int fullinstallation()
         system("cp -rf logrotate /opt/remotesyslog/logrotatedefault");
 	system("cp -rf colortail /opt/remotesyslog/");
         system("cp -rf colortail /opt/remotesyslog/colortaildefault");
+        system("cp -rf syslog-ng-local /opt/remotesyslog/syslog-ng-localdefault");
 }
 
 int reconfigure()
@@ -205,6 +220,22 @@ int restoredefault()
         system("cp -rf /opt/remotesyslog/logrotatedefault /etc/logrotate.d/remotelog");
         printf("Restore default colortail regex ...\n");
         system("cp -rf /opt/remotesyslog/colortaildefault /etc/colortail/conf.colortail");
+}
+
+int setlocallog_start ()
+{
+        printf("Deploying local syslog to Remote Syslog ...\n");
+        system("cp -rf /opt/remotesyslog/syslog-ng-localdefault /etc/syslog-ng/conf.d/99-remote-local.conf");
+        printf("Restart syslog-ng ...\n");
+        system("service syslog-ng restart");
+}
+
+int removelocallog_start ()
+{
+        printf("Removing local syslog to Remote Syslog ...\n");
+        system("rm -rf /etc/syslog-ng/conf.d/99-remote-local.conf");
+        printf("Restart syslog-ng ...\n");
+        system("service syslog-ng restart");
 }
 
 int autoupdate()
@@ -233,7 +264,9 @@ int autoupdate()
         system("cp -rf ~/syslog-latest/syslog-ng /opt/remotesyslog/syslog-ngdefault");
         system("cp -rf ~/syslog-latest/logrotate /opt/remotesyslog/logrotatedefault");
         system("cp -rf ~/syslog-latest/colortail /opt/remotesyslog/colortaildefault");
-	extraupgrade_exist("~/syslog-latest/extraupgrade");
+        printf("Copy upgrade file to /tmp/ ...\n");
+	system("cp -rf ~/syslog-latest/extraupgrade /tmp/extraupgrade");
+	extraupgrade_exist("/tmp/extraupgrade");
 }
 
 static void show_usage(std::string name)
@@ -245,8 +278,10 @@ static void show_usage(std::string name)
               << "\t-f,--fullinstall\t Start full installation\n"
               << "\t-a,--autoupgrade\t Auto upgrade (requires internet)\n"
               << "\t-d,--defaultconfig\t Restore default configuration\n"
+	      << "\t-al,--addlocallog\t Add local syslog to Remote Syslog\n"
+              << "\t-rl,--rmlocallog\t Remove local syslog to Remote Syslog\n"
               << "\n"
-              << "Remote Syslog v1.1.2 by T.Slenter\n"
+              << "Remote Syslog v1.1.2a by T.Slenter\n"
               << "More information: remotesyslog.com\n"
               << std::endl;
 }
@@ -257,7 +292,7 @@ inline bool ubnfullinstall () {
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
  printf("#Ubuntu Installation                #\n");
- printf("#Version: 1.1.2                     #\n");
+ printf("#Version: 1.1.2a                    #\n");
  printf("#####################################\n");
  printf("\n");
  ubnpackage();
@@ -272,7 +307,7 @@ inline bool debfullinstall () {
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
  printf("#Debian Installation                #\n");
- printf("#Version: 1.1.2                     #\n");
+ printf("#Version: 1.1.2a                    #\n");
  printf("#####################################\n");
  printf("\n");
  debpackage();
@@ -286,7 +321,7 @@ inline bool finstall () {
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
  printf("#Installation type: full install    #\n");
- printf("#Version: 1.1.2                     #\n");
+ printf("#Version: 1.1.2a                    #\n");
  printf("#####################################\n");
  printf("\n");
 }
@@ -296,7 +331,7 @@ inline bool upgrade () {
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
  printf("#Installation type: Reconfiguration #\n");
- printf("#Version: 1.1.2                     #\n");
+ printf("#Version: 1.1.2a                    #\n");
  printf("#####################################\n");
  printf("\n");
  install_exist("/usr/bin/rsview");
@@ -310,7 +345,7 @@ inline bool autoupgrade () {
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
  printf("#Installation type: auto update     #\n");
- printf("#Version: 1.1.2                     #\n");
+ printf("#Version: 1.1.2a                    #\n");
  printf("#####################################\n");
  printf("\n");
  install_exist("/usr/bin/rsview");
@@ -324,11 +359,39 @@ inline bool setdefault () {
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
  printf("#Installation type: Reconfiguration #\n");
- printf("#Version: 1.1.2                     #\n");
+ printf("#Version: 1.1.2a                    #\n");
  printf("#####################################\n");
  printf("\n");
  install_exist("/usr/bin/rsview");
  restoredefault();
+ checkinstallation();
+ return(0);
+}
+
+inline bool setlocallog () {
+ printf("#####################################\n");
+ printf("#Remote Syslog by T.Slenter         #\n");
+ printf("#More information: remotesyslog.com #\n");
+ printf("#Installation type: Local syslog    #\n");
+ printf("#Version: 1.1.2a                    #\n");
+ printf("#####################################\n");
+ printf("\n");
+ install_exist("/usr/bin/rsview");
+ setlocallog_start();
+ checkinstallation();
+ return(0);
+}
+
+inline bool removelocallog () {
+ printf("#####################################\n");
+ printf("#Remote Syslog by T.Slenter         #\n");
+ printf("#More information: remotesyslog.com #\n");
+ printf("#Installation type: Local syslog    #\n");
+ printf("#Version: 1.1.2a                    #\n");
+ printf("#####################################\n");
+ printf("\n");
+ install_exist("/usr/bin/rsview");
+ removelocallog_start();
  checkinstallation();
  return(0);
 }
@@ -380,6 +443,12 @@ int main(int argc, char* argv[])
         		} else if ((arg == "-d") || (arg == "--defaultconfig")) {
                 		setdefault();
                 		return(0);
+                        } else if ((arg == "-al") || (arg == "--addlocallog")) {
+                                setlocallog();
+                                return(0);
+                        } else if ((arg == "-rl") || (arg == "--rmlocallog")) {
+                                removelocallog();
+                                return(0);
         		} else {
 	        		show_usage(argv[0]);
 	        		return 1;
