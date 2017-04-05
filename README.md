@@ -23,4 +23,6 @@ rsinstaller.c => Example installer for Ubuntu or Debian based machines
 
 syslog-ng => Syslog-ng configuration (adds listeners UDP / TCP)
 
+syslog-ng-local => Syslog-ng configuration module (redirects all system logging to Remote Syslog)
+
 Check README.txt for more information or visit https://www.remotesyslog.com/
