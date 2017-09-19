@@ -100,6 +100,12 @@ inline bool installer_exist (const std::string& name) {
         }
 }
 
+int setversion ()
+{
+ printf("#Version: 1.1.3                     #\n");
+ return(0);
+}
+
 int checkinstallation()
 {
         printf("Check CLI application 1X ...\n");
@@ -134,7 +140,7 @@ int checkinstallation()
 int debpackage()
 {
         installer_exist("/usr/bin/rsinstaller");
-        printf("Notice: This installation is tested for Debian 8.7 or higher...\n");
+        printf("Notice: This installation is tested for Raspberry Pi 3B and Debian 8.x ...\n");
         printf("Starting installation ...\n");
         printf("Update installer cache ...\n");
         system("apt update");
@@ -146,7 +152,7 @@ int debpackage()
 int ubnpackage()
 {
         installer_exist("/usr/bin/rsinstaller");
-        printf("Notice: This installation is tested for Ubuntu 14.04 LTS or higher ...\n");
+        printf("Notice: This installation is tested for Debian 9.x and Ubuntu 16.04 LTS ...\n");
         printf("Starting installation ...\n");
         printf("Update installer cache ...\n");
         system("apt update");
@@ -281,7 +287,7 @@ static void show_usage(std::string name)
 	      << "\t-al,--addlocallog\t Add local syslog to Remote Syslog\n"
               << "\t-rl,--rmlocallog\t Remove local syslog to Remote Syslog\n"
               << "\n"
-              << "Remote Syslog v1.1.2a by T.Slenter\n"
+              << "Remote Syslog v1.1.3 by T.Slenter\n"
               << "More information: remotesyslog.com\n"
               << std::endl;
 }
@@ -291,8 +297,8 @@ inline bool ubnfullinstall () {
  printf("#####################################\n");
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
- printf("#Ubuntu Installation                #\n");
- printf("#Version: 1.1.2a                    #\n");
+ printf("#Debian / Ubuntu installation       #\n");
+ setversion();
  printf("#####################################\n");
  printf("\n");
  ubnpackage();
@@ -306,8 +312,8 @@ inline bool debfullinstall () {
  printf("#####################################\n");
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
- printf("#Debian Installation                #\n");
- printf("#Version: 1.1.2a                    #\n");
+ printf("#Raspberry / Debian installation    #\n");
+ setversion();
  printf("#####################################\n");
  printf("\n");
  debpackage();
@@ -321,7 +327,7 @@ inline bool finstall () {
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
  printf("#Installation type: full install    #\n");
- printf("#Version: 1.1.2a                    #\n");
+ setversion();
  printf("#####################################\n");
  printf("\n");
 }
@@ -331,7 +337,7 @@ inline bool upgrade () {
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
  printf("#Installation type: Reconfiguration #\n");
- printf("#Version: 1.1.2a                    #\n");
+ setversion();
  printf("#####################################\n");
  printf("\n");
  install_exist("/usr/bin/rsview");
@@ -345,7 +351,7 @@ inline bool autoupgrade () {
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
  printf("#Installation type: auto update     #\n");
- printf("#Version: 1.1.2a                    #\n");
+ setversion();
  printf("#####################################\n");
  printf("\n");
  install_exist("/usr/bin/rsview");
@@ -359,7 +365,7 @@ inline bool setdefault () {
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
  printf("#Installation type: Reconfiguration #\n");
- printf("#Version: 1.1.2a                    #\n");
+ setversion();
  printf("#####################################\n");
  printf("\n");
  install_exist("/usr/bin/rsview");
@@ -373,7 +379,7 @@ inline bool setlocallog () {
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
  printf("#Installation type: Local syslog    #\n");
- printf("#Version: 1.1.2a                    #\n");
+ setversion();
  printf("#####################################\n");
  printf("\n");
  install_exist("/usr/bin/rsview");
@@ -387,7 +393,7 @@ inline bool removelocallog () {
  printf("#Remote Syslog by T.Slenter         #\n");
  printf("#More information: remotesyslog.com #\n");
  printf("#Installation type: Local syslog    #\n");
- printf("#Version: 1.1.2a                    #\n");
+ setversion();
  printf("#####################################\n");
  printf("\n");
  install_exist("/usr/bin/rsview");
@@ -417,8 +423,8 @@ int main(int argc, char* argv[])
         		} else if ((arg == "-f") || (arg == "--fullinstall")) {
 				finstall();
 				printf("Select your OS: \n");
-                               	printf("1) Debian 8.7 or higher\n");
-                               	printf("2) Ubuntu 14.04 or higher\n");
+                               	printf("1) Raspberry Pi 3B or Debian 8.x\n");
+                               	printf("2) Debian 9.x or Ubuntu 16.04\n");
                                 printf("3) Exit\n");
 				printf("\n");
 				int i;

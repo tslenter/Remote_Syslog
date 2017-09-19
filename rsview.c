@@ -40,28 +40,42 @@ static void show_usage(std::string name)
               << "\t-t,--testmessage\t\t\t Send a test message\n"
               << "\t-c,--clearlog\t\t\t\t Clear total log archive\n"
               << "\n"
-              << "Remote Syslog v1.1.2a by T.Slenter\n"
+              << "Remote Syslog v1.1.3 by T.Slenter\n"
               << "More information: remotesyslog.com\n"
               << std::endl;
 }
 
+int setversion ()
+{
+ printf("#Version: 1.1.3                                 #\n");
+ return(0);
+}
+
+int donate ()
+{
+ printf("#Donate BTC: 1MbvHNDmj5fYQ9fQEdMJH7HM4c8DfVLb66 #\n");
+ return(0);
+}
+
 inline bool livebanner () {
- printf("#####################################\n");
- printf("#Remote Syslog by T.Slenter         #\n");
- printf("#More information: remotesyslog.com #\n");
- printf("#Version: 1.1.2a                    #\n");
- printf("#####################################\n");
+ printf("#################################################\n");
+ printf("#Remote Syslog by T.Slenter                     #\n");
+ printf("#More information: remotesyslog.com             #\n");
+ setversion ();
+ donate ();
+ printf("#################################################\n");
  printf("\n");
  printf("Press ctrl + c to quit\n");
  printf("\n");
 }
 
 inline bool logbanner () {
- printf("#####################################\n");
- printf("#Remote Syslog by T.Slenter         #\n");
- printf("#More information: remotesyslog.com #\n");
- printf("#Version: 1.1.2a                    #\n");
- printf("#####################################\n");
+ printf("#################################################\n");
+ printf("#Remote Syslog by T.Slenter                     #\n");
+ printf("#More information: remotesyslog.com             #\n");
+ setversion ();
+ donate ();
+ printf("#################################################\n");
  printf("\n");
 }
 

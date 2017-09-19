@@ -24,7 +24,7 @@ E-mail: info@remotesyslog.com
 
 <html>
 	<head>
-		<title>Remote Syslog: v1.1.2a</title>
+		<title>Remote Syslog: v1.1.3</title>
 	</head>
 	<body bgcolor="#000000"; style="color:#00FF00">
 
@@ -40,10 +40,10 @@ E-mail: info@remotesyslog.com
         });
 
         </script>
-		<div align="left">
-                                <?php echo "<font color=\"white\">Remote Syslog v1.1.2a by T.Slenter<br>More info: </font>"; ?><a href="https://www.remotesyslog.com/" target="_blank" style="color: #FFFF00">https://www.remotesyslog.com/</a>
+		<div align="left" >
+                                <?php echo "<font color=\"white\">Remote Syslog v1.1.3 by T.Slenter<br>More info: </font>"; ?><a href="https://www.remotesyslog.com/" target="_blank" style="color: #FFFF00">https://www.remotesyslog.com/</a>
 				<hr width="100%" noshade></hr>
-                                <div id="responsecommand">
+                                <div id="responsecommand"; style="overflow: scroll; overflow-y:hidden; height: 507px; width: 100%;" >
                                 </div>
 				<hr width="100%" noshade></hr>
 				<?php echo "<font color=\"white\"></font>"; ?>
@@ -59,6 +59,7 @@ E-mail: info@remotesyslog.com
                                                 <button type="submit" name="button2" style="width:150px; height:30px; margin-right:5;">Clear live log archive</button>
                                                 <button type="submit" name="button3" style="width:150px; height:30px;">License</button>
                                 </form>
+				<?php echo "<font color=\"white\">Donate Bitcoin: 1MbvHNDmj5fYQ9fQEdMJH7HM4c8DfVLb66</font><br>"; ?>
                 </div>
  	</body>
 </html>
