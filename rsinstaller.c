@@ -423,8 +423,8 @@ int main(int argc, char* argv[])
         		} else if ((arg == "-f") || (arg == "--fullinstall")) {
 				finstall();
 				printf("Select your OS: \n");
-                               	printf("1) Raspberry Pi 3B or Debian 8.x\n");
-                               	printf("2) Debian 9.x or Ubuntu 16.04\n");
+                               	printf("1) Debian 8.x or Raspberry Pi 3B (Jessie Lite)\n");
+                               	printf("2) Debian 9.x or Ubuntu 16.04 LTS or Raspberry Pi 3B (Stretch Lite)\n");
                                 printf("3) Exit\n");
 				printf("\n");
 				int i;
