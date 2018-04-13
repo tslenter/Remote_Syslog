@@ -39,7 +39,17 @@ inline bool localsyslog_exist (const std::string& name) {
         }
 }
 
-int main() {
-	localsyslog_exist("/opt/remotesyslog/syslog-ng-localdefault");
+inline bool searchgui_exist (const std::string& name) {
+        if (FILE *file = fopen(name.c_str(), "r")) {
+                fclose(file);
+                printf("Search is already installed ...\n");
+        } else {
+                printf("Copy new file GUI search file ...\n");
+		system("cp -rf ~/syslog-latest/indexs.php /var/www/html/");
+        }
 }
 
+int main() {
+	localsyslog_exist("/opt/remotesyslog/syslog-ng-localdefault");
+	searchgui_exist("/var/www/html/indexs.php");
+}

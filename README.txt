@@ -1,4 +1,4 @@
-1. License:
+﻿1. License:
 “Remote Syslog” is a free application what can be used to view syslog messages.
 Copyright (C) 2017 Tom Slenter
 
@@ -23,4 +23,6 @@ To change some configuration use the following files:
 /opt/remotesyslog/colortail => for a new color regex
 /opt/remotesyslog/syslog-ng => syslog configuration
 /opt/remotesyslog/logrotate => change file rotation
-/opt/remotesyslog/index.php => chang GUI
+/opt/remotesyslog/index.php => change GUI
+
+3. More information: https://www.remotesyslog.com/

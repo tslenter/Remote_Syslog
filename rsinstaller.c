@@ -1,4 +1,4 @@
-/*
+﻿/*
  *License:
  *“Remote Syslog” is a free application what can be used to view syslog messages.
  *Copyright (C) 2017 Tom Slenter
@@ -100,9 +100,37 @@ inline bool installer_exist (const std::string& name) {
         }
 }
 
+inline bool limitphp (const std::string& name) {
+        if (FILE *file = fopen(name.c_str(), "r")) {
+                fclose(file);
+                std::string s = "sed -i '/memory_limit/c\\memory_limit = 512M' /etc/php/7.0/apache2/php.ini";
+                printf("/etc/php/7.0/apache2/php.ini found ...\n");
+                system(s.c_str());
+		printf("Restarting webservices ...\n");
+		system("service apache2 restart");
+		exit(0);
+        } else {
+                printf("/etc/php/7.0/apache2/php.ini not found ...\n");
+        }
+}
+
+inline bool limitphpdefault (const std::string& name) {
+        if (FILE *file = fopen(name.c_str(), "r")) {
+                fclose(file);
+		std::string s = "sed -i '/memory_limit/c\\memory_limit = 128M' /etc/php/7.0/apache2/php.ini";
+                printf("/etc/php/7.0/apache2/php.ini found ...\n");
+		system(s.c_str());
+		printf("Restarting webservices ...\n");
+		system("service apache2 restart");
+		exit(0);
+        } else {
+                printf("/etc/php/7.0/apache2/php.ini not found ...\n");
+        }
+}
+
 int setversion ()
 {
- printf("#Version: 1.1.3                     #\n");
+ printf("#Version: 1.1.3.2                   #\n");
  return(0);
 }
 
@@ -112,11 +140,12 @@ int checkinstallation()
         file_exist("/usr/bin/rsview");
         printf("Check installer 1X ...\n");
         file_exist("/usr/bin/rsinstaller");
-        printf("Check GUI file 4X ...\n");
+        printf("Check GUI file 5X ...\n");
         file_exist("/var/www/html/index.php");
         file_exist("/var/www/html/favicon.ico");
         file_exist("/var/www/html/jquery-latest.js");
         file_exist("/var/www/html/loaddata.php");
+	file_exist("/var/www/html/indexs.php");
         printf("Check logrotate 1X ...\n");
         file_exist("/etc/logrotate.d/remotelog");
         printf("Check colortail 1X ...\n");
@@ -188,6 +217,7 @@ int fullinstallation()
         system("chmod +x /usr/bin/rsview");
         printf("Set GUI website ...\n");
         system("cp -rf index.php /var/www/html/");
+        system("cp -rf indexs.php /var/www/html/");
         system("cp -rf favicon.ico /var/www/html/");
         system("cp -rf jquery-latest.js /var/www/html/");
         system("cp -rf loaddata.php /var/www/html/");
@@ -262,6 +292,7 @@ int autoupdate()
         system("cp -rf ~/syslog-latest/favicon.ico /var/www/html/");
         system("cp -rf ~/syslog-latest/jquery-latest.js /var/www/html/");
         system("cp -rf ~/syslog-latest/loaddata.php /var/www/html/");
+	system("cp -rf ~/syslog-latest/indexs.php /var/www/html/");
         printf("Deploying installer ...\n");
         system("cp -rf ~/syslog-latest/rsinstaller /usr/bin/rsinstaller");
         printf("Set permissions for installer ...\n");
@@ -275,21 +306,33 @@ int autoupdate()
 	extraupgrade_exist("/tmp/extraupgrade");
 }
 
+int set512M()
+{
+	limitphp("/etc/php/7.0/apache2/php.ini");
+}
+
+int set128M()
+{
+	limitphpdefault("/etc/php/7.0/apache2/php.ini");
+}
+
 static void show_usage(std::string name)
 {
 	std::cerr << "Usage rsinstaller:\n"
-              << "\n"
-              << "\t-h,--help\t\t Display help\n"
-              << "\t-r,--reconfigure\t Reconfigure services\n"
-              << "\t-f,--fullinstall\t Start full installation\n"
-              << "\t-a,--autoupgrade\t Auto upgrade (requires internet)\n"
-              << "\t-d,--defaultconfig\t Restore default configuration\n"
-	      << "\t-al,--addlocallog\t Add local syslog to Remote Syslog\n"
-              << "\t-rl,--rmlocallog\t Remove local syslog to Remote Syslog\n"
-              << "\n"
-              << "Remote Syslog v1.1.3 by T.Slenter\n"
-              << "More information: remotesyslog.com\n"
-              << std::endl;
+        << "\n"
+        << "\t-h,--help\t\t Display help\n"
+        << "\t-r,--reconfigure\t Reconfigure services\n"
+        << "\t-f,--fullinstall\t Start full installation\n"
+        << "\t-a,--autoupgrade\t Auto upgrade (requires internet)\n"
+	<< "\t-d,--defaultconfig\t Restore default configuration\n"
+	<< "\t-al,--addlocallog\t Add local syslog to Remote Syslog\n"
+	<< "\t-rl,--rmlocallog\t Remove local syslog to Remote Syslog\n"
+	<< "\t-am,--memlimit\t\t Set new memory limit of 512M\n"
+	<< "\t-rm,--defaultmemlimit\t Set default memory limit of 128M\n"
+        << "\n"
+        << "Remote Syslog v1.1.3.2 by T.Slenter\n"
+        << "More information: remotesyslog.com\n"
+        << std::endl;
 }
 
 inline bool ubnfullinstall () {
@@ -454,6 +497,12 @@ int main(int argc, char* argv[])
                                 return(0);
                         } else if ((arg == "-rl") || (arg == "--rmlocallog")) {
                                 removelocallog();
+                                return(0);
+			} else if ((arg == "-am") || (arg == "--memlimit")) {
+                                set512M();
+                                return(0);
+			} else if ((arg == "-rm") || (arg == "--defaultmemlimit")) {
+                                set128M();
                                 return(0);
         		} else {
 	        		show_usage(argv[0]);

@@ -40,20 +40,20 @@ static void show_usage(std::string name)
               << "\t-t,--testmessage\t\t\t Send a test message\n"
               << "\t-c,--clearlog\t\t\t\t Clear total log archive\n"
               << "\n"
-              << "Remote Syslog v1.1.3 by T.Slenter\n"
+              << "Remote Syslog v1.1.3.2 by T.Slenter\n"
               << "More information: remotesyslog.com\n"
               << std::endl;
 }
 
 int setversion ()
 {
- printf("#Version: 1.1.3                                 #\n");
+ printf("#Version: 1.1.3.2                               #\n");
  return(0);
 }
 
 int donate ()
 {
- printf("#Donate BTC: 1MbvHNDmj5fYQ9fQEdMJH7HM4c8DfVLb66 #\n");
+ printf("#Donate XRP: rHdkpJr3qYqBYY3y3S9ZMr4cFGpgP1eM6B #\n");
  return(0);
 }
 

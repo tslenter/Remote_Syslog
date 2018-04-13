@@ -1,7 +1,7 @@
 <?php
 /*
 License:
-“Remote Syslog” is a free application what can be used to view syslog messages.
+"Remote Syslog" is a free application what can be used to view syslog messages.
 Copyright (C) 2017 Tom Slenter
 
 This program is free software: you can redistribute it and/or modify
@@ -24,7 +24,7 @@ E-mail: info@remotesyslog.com
 
 <html>
 	<head>
-		<title>Remote Syslog: v1.1.3</title>
+		<title>Remote Syslog: v1.1.3.2</title>
 	</head>
 	<body bgcolor="#000000"; style="color:#00FF00">
 
@@ -40,26 +40,34 @@ E-mail: info@remotesyslog.com
         });
 
         </script>
-		<div align="left" >
-                                <?php echo "<font color=\"white\">Remote Syslog v1.1.3 by T.Slenter<br>More info: </font>"; ?><a href="https://www.remotesyslog.com/" target="_blank" style="color: #FFFF00">https://www.remotesyslog.com/</a>
+		<div style="width:100%;">
+                                <?php echo "<font color=\"white\">Remote Syslog v1.1.3.2 by T.Slenter<br>More info: </font>"; ?><a href="https://www.remotesyslog.com/" target="_blank" style="color: #FFFF00">https://www.remotesyslog.com/</a>
 				<hr width="100%" noshade></hr>
+               			<div style="float:left; width:100%; color:#FFFFFF;">
+                                	<?php if (isset($_POST['button4'])) { header('Location: remote_syslog'); } ?>
+                                	<?php if (isset($_POST['button1'])) { exec('logger -n 127.0.0.1 -d "This is a UDP test message!"; logger -T -P 514 -n 127.0.0.1 "This is a TCP test message!"'); } ?>
+                                	<?php if (isset($_POST['button2'])) { exec('rm -rf /var/log/remote_syslog/remote_syslog.log.*'); } ?>
+                                	<?php if (isset($_POST['button3'])) { header('Location: https://www.remotesyslog.com/License'); } ?>
+					<?php if (isset($_POST['button10'])) { header('Location: index.php'); } ?>
+                                        	<form action="index.php" method="post">
+							Search live logging: <input type="text" style="width:150px; height:24px; margin-right:5;" name="data" />
+                                                        <input type="submit" name="submit" formaction="/indexs.php" style="width:150px; height:24px; margin-right:5;" value="Search" />
+							<button type="submit" name="button10" style="width:150px; height:24px; margin-right:5;">Live logging</button>
+                                                	<button type="submit" name="button4" style="width:150px; height:24px; margin-right:5;">Syslog archive</button>
+                                                	<button type="submit" name="button1" style="width:150px; height:24px; margin-right:5;">Send test message</button>
+                                                	<button type="submit" name="button2" style="width:150px; height:24px; margin-right:5;">Clear live log archive</button>
+                                                	<button type="submit" name="button3" style="width:150px; height:24px;">License</button>
+							<hr width="100%" noshade></hr>
+                                                </form>
+                                      </div>
+				</div>
                                 <div id="responsecommand"; style="overflow: scroll; overflow-y:hidden; height: 507px; width: 100%;" >
                                 </div>
 				<hr width="100%" noshade></hr>
 				<?php echo "<font color=\"white\"></font>"; ?>
 		</div>
 		<div align="center">
-                                <?php if (isset($_POST['button4'])) { header('Location: remote_syslog'); } ?>
-                                <?php if (isset($_POST['button1'])) { exec('logger -n 127.0.0.1 -d "This is a UDP test message!"; logger -T -P 514 -n 127.0.0.1 "This is a TCP test message!"'); } ?>
-                                <?php if (isset($_POST['button2'])) { exec('rm -rf /var/log/remote_syslog/remote_syslog.log.*'); } ?>
-				<?php if (isset($_POST['button3'])) { header('Location: https://www.remotesyslog.com/License'); } ?>
-                                        <form action="" method="post">
-                                                <button type="submit" name="button4" style="width:150px; height:30px; margin-right:5;">Syslog archive</button>
-                                                <button type="submit" name="button1" style="width:150px; height:30px; margin-right:5;">Send test message</button>
-                                                <button type="submit" name="button2" style="width:150px; height:30px; margin-right:5;">Clear live log archive</button>
-                                                <button type="submit" name="button3" style="width:150px; height:30px;">License</button>
-                                </form>
-				<?php echo "<font color=\"white\">Donate Bitcoin: 1MbvHNDmj5fYQ9fQEdMJH7HM4c8DfVLb66</font><br>"; ?>
+				<?php echo "<font color=\"white\">Donate Ripple: rHdkpJr3qYqBYY3y3S9ZMr4cFGpgP1eM6B</font><br>"; ?>
                 </div>
  	</body>
 </html>
