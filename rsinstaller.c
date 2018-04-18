@@ -130,7 +130,7 @@ inline bool limitphpdefault (const std::string& name) {
 
 int setversion ()
 {
- printf("#Version: 1.1.3.2                   #\n");
+ printf("#Version: 1.1.3.3                   #\n");
  return(0);
 }
 
@@ -330,7 +330,7 @@ static void show_usage(std::string name)
 	<< "\t-am,--memlimit\t\t Set new memory limit of 512M\n"
 	<< "\t-rm,--defaultmemlimit\t Set default memory limit of 128M\n"
         << "\n"
-        << "Remote Syslog v1.1.3.2 by T.Slenter\n"
+        << "Remote Syslog v1.1.3.3 by T.Slenter\n"
         << "More information: remotesyslog.com\n"
         << std::endl;
 }

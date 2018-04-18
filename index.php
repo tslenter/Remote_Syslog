@@ -24,7 +24,7 @@ E-mail: info@remotesyslog.com
 
 <html>
 	<head>
-		<title>Remote Syslog: v1.1.3.2</title>
+		<title>Remote Syslog: v1.1.3.3</title>
 	</head>
 	<body bgcolor="#000000"; style="color:#00FF00">
 
@@ -41,7 +41,7 @@ E-mail: info@remotesyslog.com
 
         </script>
 		<div style="width:100%;">
-                                <?php echo "<font color=\"white\">Remote Syslog v1.1.3.2 by T.Slenter<br>More info: </font>"; ?><a href="https://www.remotesyslog.com/" target="_blank" style="color: #FFFF00">https://www.remotesyslog.com/</a>
+                                <?php echo "<font color=\"white\">Remote Syslog v1.1.3.3 by T.Slenter<br>More info: </font>"; ?><a href="https://www.remotesyslog.com/" target="_blank" style="color: #FFFF00">https://www.remotesyslog.com/</a>
 				<hr width="100%" noshade></hr>
                			<div style="float:left; width:100%; color:#FFFFFF;">
                                 	<?php if (isset($_POST['button4'])) { header('Location: remote_syslog'); } ?>
