@@ -1,4 +1,4 @@
-A newer version is available it will be released around the end of februari 2020. The new software is announced @ https://www.remotesyslog.com/. This release has a significant boost in functinality.
+A newer version is available it will be released around the end of februari 2020. The new software is announced @ https://www.remotesyslog.com/. The download link after release: https://github.com/tslenter/RSX-RSC.git.
 
 Example# Remote_Syslog
 Scripts / Programs to deploy a Syslog Server with TUI and GUI
