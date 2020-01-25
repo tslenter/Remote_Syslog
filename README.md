@@ -1,6 +1,4 @@
-A newer version is available: https://github.com/tslenter/Remote-Syslog-Version-2-Basic
-This is the same 1.x but has some improvements and is written in bash. Version 1.x is the new
-version 2.x basic. Currently in alpha fase. Feel free to give it a try.
+A newer version is available it will be released around the end of februari 2020. The new software is announced @ https://www.remotesyslog.com/. This release has a significant boost in functinality.
 
 Example# Remote_Syslog
 Scripts / Programs to deploy a Syslog Server with TUI and GUI
