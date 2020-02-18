@@ -796,7 +796,7 @@ apt -y install rsyslog
 
 Before the Remote Syslog intallation run the “apt-add-repository multiverse” command. This repo is required to install Remote Syslog.
 
-# VERSION
+# VERSION AND LICENSE
 Remote Syslog has a stable version to use. (released on 15-02-2017). Feel free to test and install Remote Syslog. Remote Syslog is currently tested with 400 Cisco devices and had no problems saving or displaying syslog messages.
 
 ## 29. Version and changes
@@ -854,3 +854,19 @@ Note 4: The next major version removes support from Debian 8.x and Raspberry Pi 
 27-12-2016: BETA 0.1 First release, CLI only. (Not publicly available)
 
 15-12-2016: ALPHA 0.1 Concept bash version. (Not publicly available)
+
+## 30 LICENSE
+"Remote Syslog" is a free application what can be used to view syslog messages. Copyright (C) 2017 Tom Slenter
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+For more information contact the author:
+
+Name author: Tom Slenter
+
+E-mail: info@remotesyslog.com
