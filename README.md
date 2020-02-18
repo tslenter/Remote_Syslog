@@ -140,6 +140,7 @@ Note: Activate multiverse repository for 18.x
 - Debian 8.x
 - Jessie Lite (Raspberry Pi 3B)
 - Stretch Lite (Raspberry Pi 3B)
+
 To compile use:
 - g++
 - make
