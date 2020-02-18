@@ -33,7 +33,7 @@ Version 1.1.2 and below have a bug when upgrading to a version higher then 1.1.2
 
 Old webpage instruction:
 
-```html
+```HTML
 <h1>GETTING STARTED</h1>
 Remote Syslog is a free application what can be used to view syslog messages. It uses 3 small c++ programs for installation and CLI log control. Recently we added a web based GUI, this gives you a easy way of viewing and extracting syslog messages. The buildin installer installs syslog-ng as syslog deamon and combines this with colortail and apache2 to enhance the display output.
 
