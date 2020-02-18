@@ -795,3 +795,62 @@ apt -y install rsyslog
 ## 28. How do i install Remote Syslog for Ubuntu 18.x?
 
 Before the Remote Syslog intallation run the “apt-add-repository multiverse” command. This repo is required to install Remote Syslog.
+
+# VERSION
+Remote Syslog has a stable version to use. (released on 15-02-2017). Feel free to test and install Remote Syslog. Remote Syslog is currently tested with 400 Cisco devices and had no problems saving or displaying syslog messages.
+
+## 29. Version and changes
+
+### 29.1 Latest version (stable):
+
+18-04-2018: Version 1.1.3.3: Sets the default live log (/var/log/remote_syslog/remote_syslog.log) rotation for 1 week or 100MB. (Remote Syslog already installed? Run “rsinstaller -d” to restore the remote syslog defaults.)
+
+Note 1: The upgrade bug can be resolved if you run “rsinstaller -a” twice. (Triggered when upgrading: installer does not load the extra installation file). Version 1.1.2a and lower.
+
+Note 2: The following legacy commands are removed: syslog_installer, remote_log and remote_livelog
+
+Note 3: Version 1.1.2 and higher is tested for Raspberry Pi.
+
+Note 4: The next major version removes support from Debian 8.x and Raspberry Pi O/S Jessie.
+
+### 29.2 Previous versions:
+
+13-04-2018: Version 1.1.3.2: Optimized GUI code and GUI response. Basic search bar (concept) added and an option to extent the MEM_LIMIT of PHP. Allows you to search a small live log file. 100MB or less. If there is a larger live log file please consider to increase the rotation or filter some messages.
+
+05-03-2018:  Version 1.1.3.2 BETA: Optimized GUI code and GUI response. This is a concept version of Remote Syslog and no final product.   Before you install the BETA version make sure you installed version 1.1.3 stable.  This BETA is a upgrade of 1.1.3.
+
+02-01-2018:  Version 1.1.3.1 BETA: Added a search bar to the GUI. This is a concept version of Remote Syslog and no final product.   Before you install the BETA version make sure you installed version 1.1.3 stable.  This BETA is a upgrade of 1.1.3.
+
+18-09-2017: Version 1.1.3: Small update in GUI and CLI.  Supported O/S changed to Debian 8.x / 9.x and Ubuntu 16.04 LTS. Raspberry Pi new O/S support Stretch. (stable)
+
+05-04-2017: Version 1.1.2a: Fixed upgrade binarie, added a option to send all local logging to the Remote Syslog file, fixed cosmetic bug. (stable)
+
+01-03-2017: Version 1.1.2: Added binaries for Debian and Ubuntu with 64-bit, 32-bit and ARM + OS select added. (stable)
+
+23-02-2017: Version 1.1.1: Added listener on TCP 514 + updated test CLI and GUI commands (stable)
+
+18-02-2017: Version 1.1: Added function to restore default configuration (CLI) + rsview can be run without root permissions (stable)
+
+15-02-2017: Version 1.0: Bug fix GUI + new CLI installer with update over internet + new CLI rsview and rsinstaller commands (stable)
+
+14-02-2017: BETA 1.0: Bug fix GUI + update installer + new CLI rsview command(removal remote_livelog and remote_log commands).
+
+13-02-2017: BETA 0.9: Bug fix GUI + update installer.
+
+11-02-2017: BETA 0.8: Fixed some bugs.
+
+10-02-2017: BETA 0.7: Fixed some bugs. (Not publicly available)
+
+08-02-2017: BETA 0.6: Changed GUI color / Added GUI buttons / Changed daily rotation to weekly / Fixed some bugs / Installer has a auto-detect upgrade/full setup. (Not publicly available)
+
+05-02-2017: BETA 0.5: BUG fix symlink + added per host archive. (Not publicly available)
+
+02-02-2017: BETA 0.4: Added GUI and archive button. (Not publicly available)
+
+28-01-2017: BETA 0.3: Early GUI with bugs. (Not publicly available)
+
+10-01-2017: BETA 0.2: Added color pattern to CLI. (Not publicly available)
+
+27-12-2016: BETA 0.1 First release, CLI only. (Not publicly available)
+
+15-12-2016: ALPHA 0.1 Concept bash version. (Not publicly available)
