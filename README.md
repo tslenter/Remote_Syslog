@@ -337,19 +337,22 @@ Button “License”:
 Display license
 ```
 
-8. Usage demo:
+## 8. Usage demo:
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=jWtar2RQyi0
 " target="_blank"><img src="http://img.youtube.com/vi/jWtar2RQyi0/0.jpg" 
 alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
-5. Optional configuration:
-5.1 Integrate Active Directory LDAP authentication for Apache 2:
+## 9. Optional configuration:
+### 9.1 Integrate Active Directory LDAP authentication for Apache 2:
 
 Activate LDAP module apache:
-“a2enmod ldap authnz_ldap”
+```bash
+a2enmod ldap authnz_ldap
+```
 
 Configure /etc/apache2/apache2.conf as following:
+```bash
 <Directory /var/www/html>
 AuthType Basic
 AuthName “Remote Syslog Login”
@@ -357,27 +360,33 @@ Options Indexes FollowSymLinks
 AllowOverride None
 AuthBasicProvider ldap
 AuthLDAPGroupAttributeIsDN On
-AuthLDAPURL “ldap://<myadhost>:389/dc=prd,dc=corp?sAMAccountName?sub?(objectClass=*)
+AuthLDAPURL “ldap://<myadhost>:389/dc=DC01,dc=local?sAMAccountName?sub?(objectClass=*)
 AuthLDAPBindDN “CN=,OU=Accounts,DC=DC01,DC=local”
 AuthLDAPBindPassword
 AuthLDAPGroupAttribute member
 require ldap-group cn=,ou=Groups,dc=DC01,dc=local
 </Directory>
+```
 
-5.2 Basic authentication for Apache 2:
+### 9.2 Basic authentication for Apache 2:
 
 Install apache2-utils:
-“apt-get install apache2-utils”
+```bash
+apt-get install apache2-utils
+```
 
 Create .htpasswd file:
-“htpasswd -c /etc/apache2/.htpasswd <myuser>”
+```bash
+htpasswd -c /etc/apache2/.htpasswd <myuser>
+```
 
 Configure /etc/apache2/apache2.conf as following:
+```bash
 <Directory /var/www/html>
 AuthType Basic
-AuthName “Remote Syslog Login”
+AuthName "Remote Syslog Login"
 AuthBasicProvider file
-AuthUserFile “/etc/apache2/.htpasswd”
+AuthUserFile "/etc/apache2/.htpasswd"
 Require user
 Options Indexes FollowSymLinks
 AllowOverride None
@@ -385,18 +394,24 @@ Require valid-user
 Order allow,deny
 Allow from all
 </Directory>
+```
 
-5.3 Activate SSL in Apache 2:
+### 9.3 Activate SSL in Apache 2:
 
 Generate certificate:
-“mkdir /etc/cert/”
-“cd /etc/cert/”
-“openssl req -new -x509 -days 3650 -sha1 -newkey rsa:1024 -nodes -keyout server.key -out server.crt”
+```bash
+"mkdir /etc/cert/"
+"cd /etc/cert/"
+"openssl req -new -x509 -days 3650 -sha1 -newkey rsa:1024 -nodes -keyout server.key -out server.crt"
+```
 
 Configure apache:
-“nano /etc/apache2/sites-enabled/000-default.conf”
+```bash
+"nano /etc/apache2/sites-enabled/000-default.conf"
+```
 
 #Configure a virtualhost for SSL:
+```bash
 <VirtualHost *:443>
 ServerAdmin norply@rs001
 ServerName rs001
@@ -407,29 +422,39 @@ SSLEngine on
 SSLCertificateFile /etc/cert/server.crt
 SSLCertificateKeyFile /etc/cert/server.key
 </VirtualHost>
+```
 
 Load SSL module apache2:
-“cp /etc/apache2/mods-available/ssl.load /etc/apache2/mods-enabled/”
+```bash
+cp /etc/apache2/mods-available/ssl.load /etc/apache2/mods-enabled/
 or:
-“a2enmod ssl”
+a2enmod ssl
+```
 
 Restart apache2:
-“service apache2 restart”
+```bash
+service apache2 restart
+```
 
-5.4 Secure / apply filters for syslog-ng:
+### 9.4 Secure / apply filters for syslog-ng:
 
 To filter specific messages from all host in the /var/log/remote_syslog/remote_syslog.log run as root:
-“nano /opt/remotesyslog/syslog-ng”
+```bash
+nano /opt/remotesyslog/syslog-ng
+```
 
 Apply the following configuration:
+```bash
 ……. t { tcp(); };
 filter messages { not match(“<message_to_exclude>“) };
 destination Y …..
+```
 
 Then run as root:
+```bash
 rsinstaller -r
+```
 
 The filter is applied and the syslog service is restarted.
 
-To apply extra security or other filters for syslog-ng visit:
-https://syslog-ng.org/
+To apply extra security or other filters for syslog-ng visit: https://syslog-ng.org/
