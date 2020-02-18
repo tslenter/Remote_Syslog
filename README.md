@@ -144,3 +144,288 @@ Note: Activate multiverse repository for 18.x
 To compile use:
 - g++
 - make
+
+# USAGE
+To start download and extract all files to your server. Make sure that the rsinstaller file is executable. You need to run the installer with root rights. More information: Getting Started.
+
+## 5. Installer
+To print the usage do:
+```bash
+rsinstaller -h or rsinstaller
+```
+
+Usage example:
+```bash
+-h,–help                  Display help
+-r,–reconfigure           Reconfigure services
+-f,–fullinstall           Start full installation
+-a,–autoupgrade           Auto upgrade (requires internet)
+-d,–defaultconfig         Restore default configuration
+-al,–addlocallog          Add local syslog to Remote Syslog
+-rl,–rmlocallog           Remove local syslog to Remote Syslog
+-am,–memlimit             Set new memory limit of 512M
+-rm,–defaultmemlimit      Set default memory limit of 128M
+```
+### 5.1 Change the default configuration:
+
+Use the following configuration files to customize Remote Syslog:
+```bash
+/opt/remotesyslog/colortail => for a new color regex
+/opt/remotesyslog/syslog-ng => syslog configuration
+/opt/remotesyslog/logrotate => change file rotation
+To apply a new configuration, rerun the installer:
+rsinstaller -r or rsinstaller –reconfigure
+```
+
+### 5.2 Update Remote Syslog:
+
+There is a new installer in version 1.0 or higher (internet is required). You can update the installation with the following command:
+```bash
+rsinstaller -a or rsinstaller –autoupgrade
+```
+
+This update will not erase or update your configuration files. To update your configuration files to the latest version run (Section 5.4):
+```bash
+rsinstaller -d or rsinstaller –defaultconfig
+```
+Info: see section 5.1 to use a custom configuration.
+
+### 5.3 Run a new installation on a new machine:
+
+Run the following command to install Remote Syslog:
+```bash
+rsinstaller -f or rsinstaller –fullinstall
+```
+
+After a successfull run, select your supported operating system:
+Select your OS:
+```bash
+1) Debian 8.x or Raspberry Pi 3B (Jessie Lite)
+2) Debian 9.x or Ubuntu 16.04 LTS or Raspberry Pi 3B (Stretch Lite)
+3) Exit
+Enter your option: <option here>
+```
+
+### 5.4 Restore the default configuration:
+
+Run the following command to restore the default configuration:
+```bash
+rsinstaller -d or rsinstaller –defaultconfig
+```
+
+### 5.5 Force a full installation:
+
+To force a full installation run the following commands:
+```bash
+1. rm /usr/bin/rsinstaller
+2. rsinstaller -f
+```
+
+Make sure you install Remote Syslog to a clean Ubuntu 16.04 LTS or later installation. We tested the installation and usage for this platform.
+
+### 5.6 Search MEM_LIMIT for GUI:
+
+Currently the default MEM_LIMIT of PHP is 128M to search large plain text files. You can extent this limit to 512M. (higher is possible, but not recommended). You can use the following command to activate a higher limit:
+```bash
+rsinstaller -am or rsinstaller –memlimit
+```
+
+To deactivate this function use and restore the default setting:
+```bash
+rsinstaller -rm or rsinstaller –defaultmemlimit
+```
+
+## 6. Remote Syslog CLI
+
+To start use a SSH client (Recommended Putty or buildin linux ssh client)
+
+To print the usage do:
+```bash
+rsview -h or rsview
+```
+
+Usage example:
+```bash
+-h,–help                               Display help
+-s,–search <search string>             Search through logging
+-v,–view                               View logging
+-l,–live                               View live logging
+-ls,–livesearch <search string>        Search through live logging
+-t,–testmessage                        Send a test message
+-c,–clearlog                           Clear total log archive
+```
+
+### 6.1 View a live log:
+
+Remote Syslog allows you to view a live logging with the following command:
+```bash
+rsview -l or rsview –live
+```
+
+This allow you to follow new messages live in a colorfull console. To filter your output use:
+```bash
+rsview -ls <text to filter> or rsview –livesearch <text to filter>
+```
+
+### 6.2 View logging:
+
+Remote Syslog allows you to view a total logging of a week in your console. Run the following command:
+```bash
+rsview -v or rsview –view
+```
+
+This allow you to view messages in a colorfull console. To filter message do:
+```bash
+rsview -s <text to filter> or rsview –search <text to filter>
+```
+
+Use normal linux commands (like “cat, grep, tail”) to search through your logging. Use the following path:
+```bash
+/var/log/remote_syslog/<per_host>
+```
+
+### 6.3 Send a test message or clear old live logging:
+
+To test your server we added added a function to test the server:
+```bash
+rsview -t or rsview –testmessage
+```
+
+To clear all archived total logging run:
+```bash
+rsview -c or rsview –clearlog
+```
+
+### 6.4 Add a optional local logging module:
+
+To add local logging to the Remote Syslog file:
+```bash
+rsinstaller -al
+```
+
+To remove local logging from the Remote Syslog file:
+```bash
+rsinstaller -rl
+```
+
+This module can be used for debugging.
+
+### 6.5 CLI Preview (Version 1.1.3.2):
+
+<p><img src="/legacy/wp-content/uploads/2018/04/rsview.png" alt="" width="642" height="454" /></p>
+
+3. Remote Syslog GUI
+Use a browser to start. (Recommended Firefox)
+Default port is 80. We recommend that you secure the apache2 http page. Configure SSL and basic/LDAP authentication. See section 5: Optional configuration.
+
+3.1 How to control the GUI:
+
+Button “Syslog archive”:
+shows all archived files + current logging
+
+Button “Send test message”:
+Sends a test message to the syslog-ng deamon
+
+Button “Clear live log archive”:
+Clears the total archived live log files
+
+Button “License”:
+Display license
+
+3.2 GUI Preview (Version 1.1.3.2):
+
+
+
+4. Usage demo:
+
+
+5. Optional configuration:
+5.1 Integrate Active Directory LDAP authentication for Apache 2:
+
+Activate LDAP module apache:
+“a2enmod ldap authnz_ldap”
+
+Configure /etc/apache2/apache2.conf as following:
+<Directory /var/www/html>
+AuthType Basic
+AuthName “Remote Syslog Login”
+Options Indexes FollowSymLinks
+AllowOverride None
+AuthBasicProvider ldap
+AuthLDAPGroupAttributeIsDN On
+AuthLDAPURL “ldap://<myadhost>:389/dc=prd,dc=corp?sAMAccountName?sub?(objectClass=*)
+AuthLDAPBindDN “CN=,OU=Accounts,DC=DC01,DC=local”
+AuthLDAPBindPassword
+AuthLDAPGroupAttribute member
+require ldap-group cn=,ou=Groups,dc=DC01,dc=local
+</Directory>
+
+5.2 Basic authentication for Apache 2:
+
+Install apache2-utils:
+“apt-get install apache2-utils”
+
+Create .htpasswd file:
+“htpasswd -c /etc/apache2/.htpasswd <myuser>”
+
+Configure /etc/apache2/apache2.conf as following:
+<Directory /var/www/html>
+AuthType Basic
+AuthName “Remote Syslog Login”
+AuthBasicProvider file
+AuthUserFile “/etc/apache2/.htpasswd”
+Require user
+Options Indexes FollowSymLinks
+AllowOverride None
+Require valid-user
+Order allow,deny
+Allow from all
+</Directory>
+
+5.3 Activate SSL in Apache 2:
+
+Generate certificate:
+“mkdir /etc/cert/”
+“cd /etc/cert/”
+“openssl req -new -x509 -days 3650 -sha1 -newkey rsa:1024 -nodes -keyout server.key -out server.crt”
+
+Configure apache:
+“nano /etc/apache2/sites-enabled/000-default.conf”
+
+#Configure a virtualhost for SSL:
+<VirtualHost *:443>
+ServerAdmin norply@rs001
+ServerName rs001
+DocumentRoot /var/www/html
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+SSLEngine on
+SSLCertificateFile /etc/cert/server.crt
+SSLCertificateKeyFile /etc/cert/server.key
+</VirtualHost>
+
+Load SSL module apache2:
+“cp /etc/apache2/mods-available/ssl.load /etc/apache2/mods-enabled/”
+or:
+“a2enmod ssl”
+
+Restart apache2:
+“service apache2 restart”
+
+5.4 Secure / apply filters for syslog-ng:
+
+To filter specific messages from all host in the /var/log/remote_syslog/remote_syslog.log run as root:
+“nano /opt/remotesyslog/syslog-ng”
+
+Apply the following configuration:
+……. t { tcp(); };
+filter messages { not match(“<message_to_exclude>“) };
+destination Y …..
+
+Then run as root:
+rsinstaller -r
+
+The filter is applied and the syslog service is restarted.
+
+To apply extra security or other filters for syslog-ng visit:
+https://syslog-ng.org/
