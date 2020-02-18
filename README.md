@@ -310,34 +310,38 @@ rsinstaller -rl
 
 This module can be used for debugging.
 
-### 6.5 CLI Preview (Version 1.1.3.2):
-
-<p><img src="/legacy/wp-content/uploads/2018/04/rsview.png" alt="" width="642" height="454" /></p>
-
-3. Remote Syslog GUI
+## 7. Remote Syslog GUI
 Use a browser to start. (Recommended Firefox)
-Default port is 80. We recommend that you secure the apache2 http page. Configure SSL and basic/LDAP authentication. See section 5: Optional configuration.
 
-3.1 How to control the GUI:
+Default port is 80. We recommend that you secure the apache2 http page. Configure SSL and basic/LDAP authentication. See section 9: Optional configuration.
+
+### 7.1 How to control the GUI:
 
 Button “Syslog archive”:
+```
 shows all archived files + current logging
+```
 
 Button “Send test message”:
+```
 Sends a test message to the syslog-ng deamon
+```
 
 Button “Clear live log archive”:
+```
 Clears the total archived live log files
+```
 
 Button “License”:
+```
 Display license
+```
 
-3.2 GUI Preview (Version 1.1.3.2):
+8. Usage demo:
 
-
-
-4. Usage demo:
-
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=jWtar2RQyi0
+" target="_blank"><img src="http://img.youtube.com/vi/jWtar2RQyi0/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
 
 5. Optional configuration:
 5.1 Integrate Active Directory LDAP authentication for Apache 2:
