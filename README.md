@@ -1,36 +1,5 @@
 A newer version is available it will be released around the end of februari 2020. The new software is announced @ https://www.remotesyslog.com/. The download link after release: https://github.com/tslenter/RSX-RSC.git.
 
-Example# Remote_Syslog
-Scripts / Programs to deploy a Syslog Server with TUI and GUI
-
-README.txt = > Instruction for manual installation
- 
-colortail => Configuration for colortail
-
-favicon.ico => Favicon for webpage
- 
-index.php => PHP GUI for Remote Syslog
- 
-jquery-latest.js => Cross-platform JavaScript library for index.php
- 
-loaddata.php => Retrieves data from console
- 
-logrotate => Configuration for logrotate
- 
-rsview.c => Small c++ program to view syslog messages
-- compile: g++ rsview.c -o rsview
-
-rsinstaller.c => Example installer for Ubuntu or Debian based machines
-- compile: g++ rsinstaller.c -o rsinstaller
-
-syslog-ng => Syslog-ng configuration (adds listeners UDP / TCP)
-
-syslog-ng-local => Syslog-ng configuration module (redirects all system logging to Remote Syslog)
-
-Check README.txt for more information or visit https://www.remotesyslog.com/
-
-Version 1.1.2 and below have a bug when upgrading to a version higher then 1.1.2a. To resolve this issue run the "rsinstaller -a" twice.
-
 Old webpage instruction:
 
 # GETTING STARTED
@@ -871,7 +840,7 @@ Name author: Tom Slenter
 
 E-mail: info@remotesyslog.com
 
-# 31 Download
+## 31 Download
 
 Click on the link below to start downloading Remote Syslog 64-BIT:
 
@@ -888,3 +857,32 @@ https://sourceforge.net/projects/remote-syslog/files/remote-syslog-latest-arm.ta
 Click on the link below to start downloading Remote Syslog manual installation (contains source rsview):
 
 https://sourceforge.net/projects/remote-syslog/files/remote-syslog-manual-source.tar/download
+
+## 32 Repository files
+
+Example# Remote_Syslog
+Scripts / Programs to deploy a Syslog Server with TUI and GUI
+
+README.txt = > Instruction for manual installation
+ 
+colortail => Configuration for colortail
+
+favicon.ico => Favicon for webpage
+ 
+index.php => PHP GUI for Remote Syslog
+ 
+jquery-latest.js => Cross-platform JavaScript library for index.php
+ 
+loaddata.php => Retrieves data from console
+ 
+logrotate => Configuration for logrotate
+ 
+rsview.c => Small c++ program to view syslog messages
+- compile: g++ rsview.c -o rsview
+
+rsinstaller.c => Example installer for Ubuntu or Debian based machines
+- compile: g++ rsinstaller.c -o rsinstaller
+
+syslog-ng => Syslog-ng configuration (adds listeners UDP / TCP)
+
+syslog-ng-local => Syslog-ng configuration module (redirects all system logging to Remote Syslog)
