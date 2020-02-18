@@ -595,7 +595,7 @@ Run the Remote Syslog installer to apply the configuration:
 rsinstaller -r
 ```
 
-2. How do I include my local syslog to 1 file?
+## 19. How do I include my local syslog to 1 file?
 To include all local syslog to 1 file do:
 ```bash
 nano /etc/syslog-ng/syslog-ng.conf
@@ -612,7 +612,7 @@ Then reload or restart the syslog-ng service:
 service syslog-ng reload or service syslog-ng restart
 ```
 
-3. How do I include my local syslog within the Remote Syslog viewer?
+## 20. How do I include my local syslog within the Remote Syslog viewer?
 This option is included in version 1.1.2a. Run the following command to activate:
 ```bash
 rsinstaller -al
@@ -640,72 +640,94 @@ Then run the rsinstaller to apply the configuration:
 rsinstaller -r
 ```
 
-4. How do I restore my default configuration?
+## 21. How do I restore my default configuration?
 You can restore the default configuration with the following command:
 ```bash
 rsinstaller -d
 ```
 
-5. How do I make my Remote Syslog server redundant?
+## 22. How do I make my Remote Syslog server redundant?
 Install 2 Remote Syslog Servers. Then add a primary and secondary host to your device configuration. If there is no option to add a secondary syslog server you could use option 2 of this section to forward the syslog messages.
 
-6. How do I disable the loaddata.php messages in the apache 2 access.log?
+## 23. How do I disable the loaddata.php messages in the apache 2 access.log?
 Your log recieves the following messages:
+```
 172.168.29.251 – rsuser [25/May/2017:21:07:01 +0200] “GET /loaddata.php?randval=0.05259220201918463&_=1495738782510 HTTP/1.1” 200 548 “http://172.168.29.109/” “Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/6.0; rv:10.0) like Gecko”
+```
 
 This is the php page what request the realtime data. To disable this message do:
 
 In this example we use ubuntu with the setenvif module enabled:
 
+```bash
 sudo nano /etc/apache2/sites-enabled/000-default.conf
+```
 
 Add:
 
+```
 <VirtualHost *:80>
 SetEnvIf Request_URI “^/loaddata.php” dontlog
 </VirtualHost>
+```
 
 Change the CustomLog directive to:
 
+```
 <VirtualHost *:80>
 CustomLog ${APACHE_LOG_DIR}/access.log combined env=!dontlog
 </VirtualHost>
+```
 
 If SSL is enabled create the following rules:
+
+```
 <VirtualHost *:443>
 CustomLog ${APACHE_LOG_DIR}/access.log combined env=!dontlog
 SetEnvIf Request_URI “^/loaddata.php” dontlog
 </VirtualHost>
+```
 
-7. How do i check my syslog-ng service?
+## 24. How do i check my syslog-ng service?
 You can check the status with:
-“systemctl syslog-ng.service status”
+```bash
+systemctl syslog-ng.service status
+```
 
 Check for the text:
 Active: active (running)
 
 “If the service is running make sure it binds to TCP and/or UDP port 512. You can check it with:
-“netstat -tuna”
+```bash
+netstat -tuna
+```
 
 Check for the text:
+```bash
 tcp 0 0 0.0.0.0:514
 udp 0 0 0.0.0.0:514
+```
 
-8. How do i search for multiple strings of text?
+## 25. How do i search for multiple strings of text?
 Login as a regular user (root is not required) and run the following command:
 
+```bash
 grep -h “switch1\|switch2\|switch3” /var/log/remote_syslog/* | more
+```
 
 This will start a search for the text: switch1, switch2 or switch3  in the text files located in the /var/log/remote_syslog/ directory.
 
-9. How do i recieve a message by mail if a event occurs?
+## 26. How do i recieve a message by mail if a event occurs?
 We prepared a script what can be used with sendmail. Sendmail should be configured to relay the mail to your provider. The following script use a array of words and the date of today to filter messages. The script is tested for Cisco devices. Use cron to schedule the script.
 
+```bash
 #!/bin/bash
 #Array of words:
 declare -a data=(Trace module)
+```
 
 #Check if error messages exist
+```bash
 for word in “${data[@]}”; do
 mesg=$(cat /var/log/remote_syslog/remote_syslog.log | grep “^$(date +’%b %d’)” | grep $word)
 if [ -z “$mesg” ]
@@ -716,8 +738,10 @@ echo “Variable filled, setting variable to continue …”
 mesgall=1
 fi
 done
+```
 
 #Generate mail
+```bash
 if [ -z “$mesgall” ]
 then
 echo “Nothing to do, abort”
@@ -739,10 +763,12 @@ echo “Thank you for using Remote Syslog … ;-)” >> /opt/rs.txt
 cat /opt/rs.txt
 /usr/sbin/sendmail -v -F “MIS NS” -f “info@mydomain.com” ticketsystem@domain.com < /opt/rs.txt
 fi
+```
 
-10. How do i uninstall Remote Syslog?
+## 27. How do i uninstall Remote Syslog?
 You can uninstall Remote syslog by removing the packages, configuration files and binarys by the following script:
 
+```bash
 echo “File is only present if local syslog is activated”
 rm -rf /etc/syslog-ng/conf.d/99-remote-local.conf
 echo “Remove configuration files”
@@ -764,6 +790,8 @@ apt -y purge apache2 apache2-utils php libapache2-mod-php syslog-ng colortail
 apt -y autoremove
 echo “Reinstall rsyslog”
 apt -y install rsyslog
+```
 
-11. How do i install Remote Syslog for Ubuntu 18.x?
+## 28. How do i install Remote Syslog for Ubuntu 18.x?
+
 Before the Remote Syslog intallation run the “apt-add-repository multiverse” command. This repo is required to install Remote Syslog.
