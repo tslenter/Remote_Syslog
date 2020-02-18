@@ -458,3 +458,116 @@ rsinstaller -r
 The filter is applied and the syslog service is restarted.
 
 To apply extra security or other filters for syslog-ng visit: https://syslog-ng.org/
+
+# MANUAL CONFIGURATION
+The manual installation allows you to configure any distribution with our configuration. In this section we give you a example configuration of a debian based operating system.
+
+## 10. Download
+### 1.1 To download Remote Syslog directly use:
+```bash
+wget https://sourceforge.net/projects/remote-syslog/files/remote-syslog-manual-source.tar
+```
+
+## 11. Installation packages
+### 11.1 Update installer cache:
+```bash
+apt update
+```
+
+### 11.2 Remove conflicting packages:
+```bash
+apt -y purge rsyslog
+```
+
+### 11.3 Install new packages:
+```bash
+apt install syslog-ng colortail wget logrotate grep apache2 apache2-bin apache2-data apache2-utils libapache2-mod-php5 libapr1 libaprutil1 libaprutil1-dbd-sqlite3 libaprutil1-ldap liblua5.1-0 libonig2 libqdbm14 php5-cli php5-common php5-json php5-readline ssl-cert tar
+```
+
+## 12. Configuration packages
+### 12.1 Creating dummy remote_syslog file:
+```bash
+mkdir /var/log/remote_syslog/
+touch /var/log/remote_syslog/remote_syslog.log
+```
+
+### 12.2 Set permissions dummy file:
+```bash
+chown www-data:www-data /var/log/remote_syslog/
+chown www-data:www-data /var/log/remote_syslog/remote_syslog.log
+```
+
+### 12.3 Set symbolic link from remote_log directory -> html public dir:
+```bash
+ln -s /var/log/remote_syslog /var/www/html/
+```
+
+### 12.4 Add a new configuration file for syslog-ng:
+```bash
+cp -rf syslog-ng /etc/syslog-ng/conf.d/99-remote.conf
+```
+
+### 12.5 Copy a optional syslog-ng module (sends all local syslog to Remote Syslog):
+```bash
+cp -rf syslog-ng-localdefault /etc/syslog-ng/conf.d/99-remote-local.conf
+```
+
+Note 1: This module is optional. It sends all local logging to the Remote Syslog file. Usefull when debugging.
+
+### 12.6 Apply new syslog-ng configuration:
+```bash
+service syslog-ng restart
+```
+
+### 12.7 Apply/copy new configuration for logrotate:
+```bash
+cp -rf logrotate /etc/logrotate.d/remotelog
+```
+
+### 12.8 Activate new REGEX for colortail:
+```bash
+cp -rf colortail /etc/colortail/conf.colortail
+```
+
+## 13. Deploy CLI application
+### 13.1 Install packages to build rsview:
+```bash
+apt install g++ make
+```
+
+### 13.2 Compile rsview:
+```bash
+g++ rsview.c -o rsview
+```
+
+### 13.3 Copy rsview:
+```bash
+cp -rf rsview /usr/bin/rsview
+```
+
+### 13.4 Set permissions to rsview:
+```bash
+chmod +x /usr/bin/rsview
+```
+
+## 16. Deploy GUI webpage
+### 16.1 Copy all files to your Apache 2 webpage directory:
+```bash
+cp -rf index.php /var/www/html/
+cp -rf indexs.php /var/www/html/
+cp -rf favicon.ico /var/www/html/
+cp -rf jquery-latest.js /var/www/html/
+cp -rf loaddata.php /var/www/html/
+```
+
+## 17. Config files
+### 17.1 To change some configuration use the following files:
+```bash
+/etc/colortail/conf.colortail => for a new color regex
+/etc/syslog-ng/conf.d/99-remote.conf => syslog configuration
+/etc/logrotate.d/remotelog => change file rotation
+/var/www/html/index.php => chang GUI
+Recompile rsview.c => change CLI
+```
+
+Note 1: When you use a not recommended (Debian or Ubuntu) distrubution, your path to add configuration or copy files could be different.
