@@ -1,5 +1,7 @@
 #### A newer version is available it will be released around the end of februari 2020. The new software is announced @ https://www.remotesyslog.com/. The download link after release: https://github.com/tslenter/RSX-RSC.git.
 
+#### All support will be dropped from Remote Syslog 1.x on 25 march 2020. Upgrade available after 29 february.
+
 Old webpage instruction:
 
 # GETTING STARTED
