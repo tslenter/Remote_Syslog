@@ -106,3 +106,40 @@ Run the installer as root
 ```bash
 ./rsinstaller -f
 ```
+### 2.3 Automatic installation video (DEMO)
+
+Watch the following YouTube video for a installation and functionality check:
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=jk6wwRvr6GE
+" target="_blank"><img src="http://img.youtube.com/vi/jk6wwRvr6GE/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="240" height="180" border="10" /></a>
+
+# REQUIREMENTS
+Make sure that you meet the minimum system requirements. Increase the capacity if you experience any performance issues.
+
+## 3. Hardware requirements
+### 3.1 Custom build:
+
+- Intel ATOM 1.6Ghz processor or better
+- 512MB RAM or higher
+- 128GB Storage
+- Monitor resolution of 1920×1080
+- CPU microarchitectures: X86 (32-Bit), X64 (64-Bit) and ARM (Acorn RISC Machine)
+
+### 3.2 Device support:
+
+- Raspberry Pi
+- 3B version recommended
+- Tested for Raspbian Jessie Lite and Stretch Lite
+
+## 4. Software requirements
+Operating System:
+- Ubuntu 16.04 LTS server / 18.04 LTS Server
+Note: Activate multiverse repository for 18.x
+- Debian 9.x
+- Debian 8.x
+- Jessie Lite (Raspberry Pi 3B)
+- Stretch Lite (Raspberry Pi 3B)
+To compile use:
+- g++
+- make
