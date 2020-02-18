@@ -870,3 +870,21 @@ For more information contact the author:
 Name author: Tom Slenter
 
 E-mail: info@remotesyslog.com
+
+# 31 Download
+
+Click on the link below to start downloading Remote Syslog 64-BIT:
+
+https://sourceforge.net/projects/remote-syslog/files/remote-syslog-latest-AMD64.tar/download
+
+Click on the link below to start downloading Remote Syslog 32-BIT:
+
+https://sourceforge.net/projects/remote-syslog/files/remote-syslog-latest-x86.tar/download
+
+Click on the link below to start downloading Remote Syslog ARM:
+
+https://sourceforge.net/projects/remote-syslog/files/remote-syslog-latest-arm.tar/download
+
+Click on the link below to start downloading Remote Syslog manual installation (contains source rsview):
+
+https://sourceforge.net/projects/remote-syslog/files/remote-syslog-manual-source.tar/download
