@@ -1,4 +1,4 @@
-#### Newer software is available @ https://www.remotesyslog.com/. New GitHub link: https://github.com/tslenter/RSX-RSC.git.
+#### New software is available @ https://www.remotesyslog.com/. New GitHub link: https://github.com/tslenter/RSX-RSC.git.
 
 #### All support will be dropped from Remote Syslog 1.x on 25 march 2020.
 
